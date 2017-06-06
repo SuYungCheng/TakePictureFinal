@@ -20,10 +20,10 @@ class ViewController: UIViewController {
             self.imagePicker.sourceType = .camera
             self.imagePicker.allowsEditing = true
             self.imagePicker.cameraOverlayView = self.customOverlayView()
-//            self.imagePicker.showsCameraControls = false
-//            let camScaleup : CGFloat = 1.8
+            self.imagePicker.showsCameraControls = false
+            let camScaleup : CGFloat = 1.8
 //            self.imagePicker.cameraViewTransform = CGAffineTransform(translationX: 0.0, y: 50.0)
-//            self.imagePicker.cameraViewTransform = CGAffineTransform(scaleX: camScaleup, y: camScaleup)
+            self.imagePicker.cameraViewTransform = CGAffineTransform(scaleX: camScaleup, y: camScaleup)
             self.present(self.imagePicker, animated: true, completion: nil)
             
         } else {
@@ -93,13 +93,14 @@ extension ViewController: UIImagePickerControllerDelegate {
         
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-//        let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-//        self.imageView.image = originalImage
-        let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
-        self.imageView.image = editedImage
+        let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        self.imageView.image = originalImage
+//        let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
+//        self.imageView.image = editedImage
         self.imageView.contentMode = .scaleAspectFill
         self.dismiss(animated: true, completion: nil)
-        UIImageWriteToSavedPhotosAlbum(editedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        UIImageWriteToSavedPhotosAlbum(originalImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+//        UIImageWriteToSavedPhotosAlbum(editedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
         
     }
     
